@@ -1,7 +1,7 @@
 {
   "name": "@KING/seemath",
   "version": "0.1.8",
-  "description": "A Claude Code plugin: a collection of education skills that turn academic problems into interactive lesson web pages and explainer videos. Skills: edu-solid-geometry (solid geometry, coordinate+vector method, 3D Three.js + MathJax), edu-analytic-geometry (conic sections, exact sympy-driven solutions with a live interactive 2D Canvas board + KaTeX), edu-chem-reaction (microscopic 3D chemistry reaction demos — sympy-balanced, atom-conservation morph + mechanism engines, Three.js + KaTeX), and edu-math-video (math problem explainer videos — Chinese GLM-TTS voice-over, bilingual zh+en subtitles, hand-drawn canvas animation rendered to MP4).",
+  "description": "A Claude Code plugin: a collection of education skills that turn academic problems into interactive lesson web pages and explainer videos. Skills: seemath-solid-geometry (solid geometry, coordinate+vector method, 3D Three.js + MathJax), seemath-analytic-geometry (conic sections, exact sympy-driven solutions with a live interactive 2D Canvas board + KaTeX), seemath-chem-reaction (microscopic 3D chemistry reaction demos — sympy-balanced, atom-conservation morph + mechanism engines, Three.js + KaTeX), and seemath-math-video (math problem explainer videos — Chinese GLM-TTS voice-over, bilingual zh+en subtitles, hand-drawn canvas animation rendered to MP4).",
   "keywords": [
     "claude-code",
     "claude-code-plugin",
@@ -42,9 +42,9 @@
     "skills/**/*",
     "!skills/**/__pycache__/**",
     "!skills/**/*.pyc",
-    "!skills/edu-solid-geometry/output/**",
-    "!skills/edu-analytic-geometry/output/**",
-    "!skills/edu-chem-reaction/output/**",
+    "!skills/seemath-solid-geometry/output/**",
+    "!skills/seemath-analytic-geometry/output/**",
+    "!skills/seemath-chem-reaction/output/**",
     ".claude-plugin",
     "index.html",
     "README.md",

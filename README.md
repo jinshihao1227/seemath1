@@ -18,7 +18,7 @@ To update to the latest version later:
 npx skills update
 ```
 
-> **Note:** `npx skills update` only refreshes skills you've **already** installed — it does **not** pull in skills newly added to the repo. When this repo gains a new skill (e.g. a new `edu-*`), run `npx skills add jinshihao1227/seemath1` again to install it.
+> **Note:** `npx skills update` only refreshes skills you've **already** installed — it does **not** pull in skills newly added to the repo. When this repo gains a new skill (e.g. a new `seemath-*`), run `npx skills add jinshihao1227/seemath1` again to install it.
 
 Or use it as a Claude Code plugin marketplace:
 
@@ -29,9 +29,9 @@ Or use it as a Claude Code plugin marketplace:
 
 Once installed, the skills activate on their trigger words, and can also be invoked manually.
 
-## Skill: edu-solid-geometry
+## Skill: seemath-solid-geometry
 
-![edu-solid-geometry demo](edu-solid-geometry.gif)
+![seemath-solid-geometry demo](seemath-solid-geometry.gif)
 
 Solves one solid geometry problem into a self-contained interactive lesson page. Three entry points:
 
@@ -56,7 +56,7 @@ python3 -m pip install sympy   # if sympy is missing
 ### Generate from the command line (without Claude)
 
 ```bash
-cd skills/edu-solid-geometry
+cd skills/seemath-solid-geometry
 python3 scripts/generate.py cube   ./cube.html     # cube · line-plane angle
 python3 scripts/generate.py box    ./box.html      # cuboid · volume
 python3 scripts/generate.py random 7 ./random.html # random problem (seed=7)
@@ -65,9 +65,9 @@ python3 lib/geometry_kernel.py                     # kernel built-in self-check
 
 > If you don't pass an output path, it writes to the **current working directory (cwd)**.
 
-## Skill: edu-analytic-geometry
+## Skill: seemath-analytic-geometry
 
-![edu-analytic-geometry demo](edu-analytic-geometry.gif)
+![seemath-analytic-geometry demo](seemath-analytic-geometry.gif)
 
 Solves one analytic geometry (conic sections) problem into a self-contained interactive lesson page. Same three entry points as above (text / image / random). Built on a **2D Canvas board + KaTeX** with a generic, data-driven interactive engine: a parameter slider drives derived constructions (line∩conic, point-on-conic, central reflection, tangent…) and live readouts, with a theoretical-range bar or a fixed-value indicator.
 
@@ -84,7 +84,7 @@ The compute core `lib/analytic_kernel.py` depends on **sympy** (same as above).
 ### Generate from the command line (without Claude)
 
 ```bash
-cd skills/edu-analytic-geometry
+cd skills/seemath-analytic-geometry
 python3 scripts/generate.py list                          # list registered problem types
 python3 scripts/generate.py ellipse_dot_range ./sol.html  # ellipse · MA·MB range [-3, 7/4]
 python3 scripts/generate.py parabola_dot_const ./sol.html # parabola focal chord · OA·OB ≡ -3
@@ -94,9 +94,9 @@ python3 lib/analytic_kernel.py                            # kernel built-in self
 
 > Like above, no output path → writes to the **current working directory (cwd)**.
 
-## Skill: edu-chem-reaction
+## Skill: seemath-chem-reaction
 
-![edu-chem-reaction demo](edu-chem-reaction.gif)
+![seemath-chem-reaction demo](seemath-chem-reaction.gif)
 
 Turns one chemical reaction into a self-contained **microscopic 3D demonstration** page: an interactive Three.js molecular animation (drag the slider to watch bonds break / form and atoms recombine, with step highlighting) next to the KaTeX equation, step-by-step narration, an atom-conservation counter, and an optional energy–reaction-coordinate curve. Same three entry points (text / image / random).
 
@@ -122,7 +122,7 @@ The compute core `lib/reaction_kernel.py` depends on **sympy** (same as above). 
 ### Generate from the command line (without Claude)
 
 ```bash
-cd skills/edu-chem-reaction
+cd skills/seemath-chem-reaction
 python3 scripts/generate.py list                            # list registered reactions
 python3 scripts/generate.py combustion_ch4 ./reaction.html  # methane combustion (morph · flame)
 python3 scripts/generate.py esterification ./reaction.html  # esterification (mechanism · catalyst)
@@ -132,9 +132,9 @@ python3 lib/reaction_kernel.py                              # kernel built-in se
 
 > Like above, no output path → writes to the **current working directory (cwd)**.
 
-## Skill: edu-math-video
+## Skill: seemath-math-video
 
-![edu-math-video demo](edu-math-video.jpg)
+![seemath-math-video demo](seemath-math-video.jpg)
 
 Turns one math problem (geometry, algebra, functions, motion problems…) into a **16:9 1920×1080 explainer MP4**: Chinese voice-over (Zhipu **GLM-TTS**), bilingual zh + en subtitles (`.srt` too), and hand-drawn notebook-style canvas animation driven by the narration timeline. Input is a problem screenshot or plain text.
 
@@ -160,19 +160,19 @@ anim.js + engine.js ──node render.mjs video──► <name>.mp4             
 ### Run the pipeline by hand (without Claude)
 
 ```bash
-bash skills/edu-math-video/scripts/new_video.sh "$PWD" my_problem   # scaffold from template/
-bash skills/edu-math-video/scripts/setup_check.sh my_problem        # must print ALL OK
+bash skills/seemath-math-video/scripts/new_video.sh "$PWD" my_problem   # scaffold from template/
+bash skills/seemath-math-video/scripts/setup_check.sh my_problem        # must print ALL OK
 cd my_problem
 python3 build_audio.py --check                                      # script + pronunciation lint (free)
 python3 build_audio.py --preview && node render.mjs motion && node render.mjs stills auto
 python3 build_audio.py && node render.mjs video 6                   # real TTS, then render (6 = parallel pages)
 ```
 
-## Skill: edu-physics-video
+## Skill: seemath-physics-video
 
-![edu-physics-video demo](edu-physics-video.jpg)
+![seemath-physics-video demo](seemath-physics-video.jpg)
 
-Turns one physics problem (mechanics, optics, electromagnetism…) into a **16:9 1920×1080 explainer MP4**: Chinese voice-over (Zhipu **GLM-TTS**), bilingual zh + en subtitles (`.srt` too), and blueprint-style canvas animation driven by the narration timeline. Input is a problem screenshot or plain text. Same pipeline as edu-math-video; what changes is the solving method and the picture.
+Turns one physics problem (mechanics, optics, electromagnetism…) into a **16:9 1920×1080 explainer MP4**: Chinese voice-over (Zhipu **GLM-TTS**), bilingual zh + en subtitles (`.srt` too), and blueprint-style canvas animation driven by the narration timeline. Input is a problem screenshot or plain text. Same pipeline as seemath-math-video; what changes is the solving method and the picture.
 
 **The picture follows the physics**: model the object, split the motion into segments, draw the forces, pick a law, solve, then check. Force arrows grow from the point of application on one scale, the object moves on the analytic solution `x(t)` through a linear `simT()` map, the v–t graph grows in sync, and friction reverses when the relative motion does. Timed by `S.at(k, f)`.
 
@@ -189,22 +189,22 @@ anim.js + phys.js + engine.js ──node render.mjs video──► <name>.mp4   
 
 ### Dependency
 
-Same as edu-math-video: Python 3 with `numpy requests pypinyin pillow`, Node.js 18+ with `playwright` + `ffmpeg-static`, and a Zhipu **`GLM_API_KEY`** in `~/.config/math-problem-video/.env` (shared by all three video skills). No key → `TTS_ENGINE=auto` falls back to [edge-tts](https://github.com/rany2/edge-tts), then macOS `say`.
+Same as seemath-math-video: Python 3 with `numpy requests pypinyin pillow`, Node.js 18+ with `playwright` + `ffmpeg-static`, and a Zhipu **`GLM_API_KEY`** in `~/.config/math-problem-video/.env` (shared by all three video skills). No key → `TTS_ENGINE=auto` falls back to [edge-tts](https://github.com/rany2/edge-tts), then macOS `say`.
 
 ### Run the pipeline by hand (without Claude)
 
 ```bash
-bash skills/edu-physics-video/scripts/new_video.sh "$PWD" my_problem
-bash skills/edu-physics-video/scripts/setup_check.sh my_problem        # must print ALL OK
+bash skills/seemath-physics-video/scripts/new_video.sh "$PWD" my_problem
+bash skills/seemath-physics-video/scripts/setup_check.sh my_problem        # must print ALL OK
 cd my_problem
 python3 build_audio.py --check
 python3 build_audio.py --preview && node render.mjs motion && node render.mjs stills auto
 python3 build_audio.py && node render.mjs video 6
 ```
 
-## Skill: edu-chem-video
+## Skill: seemath-chem-video
 
-![edu-chem-video demo](edu-chem-video.jpg)
+![seemath-chem-video demo](seemath-chem-video.jpg)
 
 Turns one chemistry problem (redox balancing and the double-line bridge, amount of substance, equilibrium and the ICE table, ionic reactions, electrochemistry, titration, industrial processes…) into a **16:9 1920×1080 explainer MP4** with the same voice-over and bilingual subtitles, drawn on a **green chalkboard**. The balanced equation stays pinned in a strip at the top; the demo sits on the left and the slate on the right.
 
@@ -218,13 +218,13 @@ Turns one chemistry problem (redox balancing and the double-line bridge, amount 
 
 ### Dependency
 
-Same as edu-math-video (shared `GLM_API_KEY` and the same fallback). `scripts/chem_check.py` needs no extra packages — it checks coefficients, atom / charge conservation, and molar mass.
+Same as seemath-math-video (shared `GLM_API_KEY` and the same fallback). `scripts/chem_check.py` needs no extra packages — it checks coefficients, atom / charge conservation, and molar mass.
 
 ### Run the pipeline by hand (without Claude)
 
 ```bash
-bash skills/edu-chem-video/scripts/new_video.sh "$PWD" my_problem
-bash skills/edu-chem-video/scripts/setup_check.sh my_problem           # must print ALL OK
+bash skills/seemath-chem-video/scripts/new_video.sh "$PWD" my_problem
+bash skills/seemath-chem-video/scripts/setup_check.sh my_problem           # must print ALL OK
 cd my_problem
 python3 build_audio.py --check
 python3 build_audio.py --preview && node render.mjs motion && node render.mjs stills auto
@@ -248,7 +248,7 @@ seemath/
 │   └── marketplace.json         # marketplace manifest
 ├── index.html                   # finished sample (quad pyramid · line-plane angle)
 └── skills/
-    ├── edu-solid-geometry/      # solid geometry — 3D (Three.js) + MathJax
+    ├── seemath-solid-geometry/      # solid geometry — 3D (Three.js) + MathJax
     │   ├── SKILL.md
     │   ├── template/lesson.html # data-driven template (generic 3D renderer + data island)
     │   ├── lib/
@@ -257,7 +257,7 @@ seemath/
     │   ├── scripts/generate.py
     │   ├── output/
     │   └── references/          # problem-schema.md · conventions.md
-    ├── edu-analytic-geometry/   # analytic geometry / conics — 2D (Canvas) + KaTeX
+    ├── seemath-analytic-geometry/   # analytic geometry / conics — 2D (Canvas) + KaTeX
     │   ├── SKILL.md
     │   ├── template/board.html  # data-driven template (generic 2D renderer + param engine)
     │   ├── lib/
@@ -266,7 +266,7 @@ seemath/
     │   ├── scripts/generate.py
     │   ├── output/
     │   └── references/          # problem-schema.md · conventions.md
-    ├── edu-chem-reaction/       # chemistry reactions — 3D (Three.js) + KaTeX
+    ├── seemath-chem-reaction/       # chemistry reactions — 3D (Three.js) + KaTeX
     │   ├── SKILL.md
     │   ├── template/reaction.html # data-driven template (unified renderer + dual engine + data island)
     │   ├── lib/
@@ -275,21 +275,21 @@ seemath/
     │   ├── scripts/generate.py
     │   ├── output/
     │   └── references/          # problem-schema.md · conventions.md
-    ├── edu-math-video/          # math explainer videos — GLM-TTS + canvas animation → MP4
+    ├── seemath-math-video/          # math explainer videos — GLM-TTS + canvas animation → MP4
     │   ├── SKILL.md
     │   ├── template/            # runnable sample project (engine.js · anim.js · build_audio.py · render.mjs)
     │   ├── shared/              # pron.py + pron.json — shared pronunciation lexicon
     │   ├── scripts/             # new_video.sh · setup_check.sh · problem image & contact-sheet tools
     │   ├── examples/cone-parallel/  # solid-geometry example (camera tween · cone unrolling)
     │   └── reference/           # TTS setup · script writing · pronunciation · visual design · animation API
-    ├── edu-physics-video/       # physics explainer videos — GLM-TTS + blueprint canvas → MP4
+    ├── seemath-physics-video/       # physics explainer videos — GLM-TTS + blueprint canvas → MP4
     │   ├── SKILL.md
     │   ├── template/            # blueprint theme (engine.js · phys.js · anim.js)
     │   ├── shared/
     │   ├── scripts/
     │   ├── examples/laser-curvature/  # geometric-optics example
     │   └── reference/
-    └── edu-chem-video/          # chemistry explainer videos — GLM-TTS + chalkboard canvas → MP4
+    └── seemath-chem-video/          # chemistry explainer videos — GLM-TTS + chalkboard canvas → MP4
         ├── SKILL.md
         ├── template/            # chalkboard theme (engine.js · chem.js · anim.js)
         ├── shared/
@@ -300,27 +300,27 @@ seemath/
 
 ## Extending
 
-**edu-solid-geometry**
+**seemath-solid-geometry**
 - **Add a problem type**: add a solver function in `geometry_kernel.py` (see the recipe table in `references/conventions.md`), then add a `build_*` in `generate.py`.
 - **Add a solid**: add a coordinate-construction function in `geometry_kernel.py`, then add its edge topology in `bodies.py`.
 
-**edu-analytic-geometry**
+**seemath-analytic-geometry**
 - **Add a problem type**: add a target-quantity function in `analytic_kernel.py` and reuse `range_over_m` / `is_constant_in_m`, then add a `build_*` in `generate.py` (pick an interaction: range bar / fixed value / fixed point / locus trace).
 - **Add a curve**: ellipse / hyperbola / parabola / circle are built in; new curves go in `conics.py` and the `board.html` engine.
 
-**edu-chem-reaction**
+**seemath-chem-reaction**
 - **Add a reaction**: add a `build_*` in `generate.py` (high-level `species + atom_map`, or low-level `atoms + fragments` for mechanisms) and register it in `REGISTRY`.
 - **Add a molecule / ion**: add an entry in `lib/molecules.py` (VSEPR geometry + display metadata + internal bonds).
 
-**edu-math-video**
+**seemath-math-video**
 - **New problem**: never edit `engine.js`; write the per-problem `script.json` / `storyboard.md` / `anim.js`, and add new figure helpers inside `anim.js`.
 - **Fix a reading**: add the word to `shared/pron.json` (`words` / `ok`) — one lexicon shared by every video.
 
-**edu-physics-video**
+**seemath-physics-video**
 - **New problem**: leave `engine.js` unchanged; write the per-problem `script.json` / `storyboard.md` / `anim.js`. Shared physics props go in `phys.js`.
 - **Fix a reading**: add the word to `shared/pron.json`.
 
-**edu-chem-video**
+**seemath-chem-video**
 - **New problem**: leave `engine.js` unchanged; write the per-problem files. Shared chemistry props go in `chem.js`. Run `scripts/chem_check.py` on the equation before drawing.
 - **Fix a reading**: add the word to `shared/pron.json`.
 
