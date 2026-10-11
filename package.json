@@ -36,7 +36,7 @@
     "type": "git",
     "url": "git+https://github.com/jinshihao1227/seemath1.git"
   },
-  "author": "WY (@akokoi1) (https://x.com/akokoi1)",
+  "author": "JSH (@akokoi1) (https://x.com/akokoi1)",
   "license": "Apache-2.0",
   "files": [
     "skills/**/*",

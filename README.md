@@ -330,7 +330,7 @@ seemath/
 
 ## Author
 
-WY · [@akokoi1](https://x.com/akokoi1)
+JSH · [@akokoi1](https://x.com/akokoi1)
 
 | WeChat | Xiaohongshu |
 |---|---|

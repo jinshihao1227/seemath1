@@ -330,7 +330,7 @@ seemath/
 
 ## 作者
 
-WY · [@akokoi1](https://x.com/akokoi1)
+JSH · [@akokoi1](https://x.com/akokoi1)
 
 | 微信公众号 | 小红书 |
 |---|---|
