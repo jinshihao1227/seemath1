@@ -3,7 +3,6 @@
 *.py[cod]
 
 # Internal development samples (not needed by consumers)
-skills/seemath-solid-geometry/output/
 skills/seemath-analytic-geometry/output/
 
 # Editor / OS cruft

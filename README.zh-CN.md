@@ -29,42 +29,6 @@ npx skills update
 
 安装后，技能会随触发词自动激活，也可以手动调用。
 
-## 技能：seemath-solid-geometry
-
-![seemath-solid-geometry 演示](seemath-solid-geometry.gif)
-
-把一道立体几何题解成一个自包含的交互教学网页。支持三种入口：
-
-| 入口 | 说明 |
-|---|---|
-| 文字题目 | 直接抽取题面求解 |
-| 上传图片 | 视觉读图识别题目，回显确认后求解 |
-| 随机出题 | 随机参数求解，答案不规整自动重抽 |
-
-**覆盖题型**：正方体 / 长方体、棱锥 / 棱柱、圆柱 / 圆锥上的——线面角、二面角、异面直线夹角、点到平面距离、体积等。统一用"建系 + 向量法"。
-
-**触发词**：立体几何、线面角、二面角、异面直线、点到平面距离、正四棱锥、解这道几何题、随机出一道立体几何题、这张图里的立体几何题；solid geometry, line-plane angle, dihedral angle, distance to plane, interactive geometry solution page 等。
-
-### 依赖
-
-计算核心 `lib/geometry_kernel.py` 依赖 **sympy**。用任意一个能 import sympy 的 `python3` 即可：
-
-```bash
-python3 -m pip install sympy   # 若缺 sympy
-```
-
-### 命令行直接生成（不经过 Claude）
-
-```bash
-cd skills/seemath-solid-geometry
-python3 scripts/generate.py cube   ./cube.html     # 正方体·线面角
-python3 scripts/generate.py box    ./box.html      # 长方体·体积
-python3 scripts/generate.py random 7 ./random.html # 随机出题（seed=7）
-python3 lib/geometry_kernel.py                     # kernel 内置样例自检
-```
-
-> 不传输出路径时，默认写到**当前工作目录（cwd）**。
-
 ## 技能：seemath-analytic-geometry
 
 ![seemath-analytic-geometry 演示](seemath-analytic-geometry.gif)
@@ -90,44 +54,6 @@ python3 scripts/generate.py ellipse_dot_range ./sol.html  # 椭圆 · MA·MB 范
 python3 scripts/generate.py parabola_dot_const ./sol.html # 抛物线焦点弦 · OA·OB ≡ -3
 python3 scripts/generate.py all ./out_dir                 # 全部已注册题型
 python3 lib/analytic_kernel.py                            # kernel 内置自检
-```
-
-> 同上，不传输出路径时默认写到**当前工作目录（cwd）**。
-
-## 技能：seemath-chem-reaction
-
-![seemath-chem-reaction 演示](seemath-chem-reaction.gif)
-
-把一个化学反应做成自包含的**微观 3D 演示**网页：一侧是可交互的 Three.js 分子动画（拖滑块看化学键断裂 / 生成、原子重新组合，分步高亮），另一侧是 KaTeX 反应方程 + 分步讲解 + 原子守恒计数 + 可选能量-反应进程曲线。三入口与上面一致（文字 / 图片 / 随机）。
-
-**双引擎自动选择** —— 一套渲染器、两种逐帧定位，共用键差绘制、标签、叠加层与 UI：
-
-| 引擎 | 适用 | 强调 |
-|---|---|---|
-| morph | 燃烧、化合 / 分解 / 置换、氧化还原 | 原子各自飞向新搭档——原子守恒与重组 |
-| mechanism | 有机机理（酯化…），含催化剂 · 过渡态 · 离去基团 | 分子片段按关键帧刚体位移——反应机理 |
-
-**sympy 驱动的正确性**：自动配平方程（由元素矩阵零空间求整数计量数）、校验原子映射（反应物↔产物原子的双射）与守恒，并由反应前后键的差集推导哪根键断 / 成——方程、几何、计数器同源一致。
-
-**混合几何**：默认用自建 VSEPR 分子库；若环境装有 RDKit 则可由 SMILES 生成构象（绝不自动安装）。
-
-**覆盖反应**：甲烷 / 氢气燃烧、电解水、钠与氯气氧化还原（含电子转移叠加层）、葡萄糖有氧氧化、酯化机理——涵盖初中基础、高中无机氧化还原与有机机理。
-
-**触发词**：化学反应、微观演示、分子动画、燃烧、电解水、氧化还原、电子转移、酯化反应、断键成键、原子守恒、化学方程式配平；chemistry reaction, microscopic/molecular animation, combustion, electrolysis, redox electron transfer, esterification mechanism, atom conservation, interactive chemistry reaction page 等。
-
-### 依赖
-
-计算核心 `lib/reaction_kernel.py` 依赖 **sympy**（同上）。**RDKit 为可选项**——装了才用，绝不自动安装。
-
-### 命令行直接生成（不经过 Claude）
-
-```bash
-cd skills/seemath-chem-reaction
-python3 scripts/generate.py list                            # 列出已注册反应
-python3 scripts/generate.py combustion_ch4 ./reaction.html  # 甲烷燃烧（morph · 火焰）
-python3 scripts/generate.py esterification ./reaction.html  # 酯化反应（mechanism · 催化剂）
-python3 scripts/generate.py random 7 ./random.html          # 随机出题（seed=7）
-python3 lib/reaction_kernel.py                              # kernel 内置自检
 ```
 
 > 同上，不传输出路径时默认写到**当前工作目录（cwd）**。
@@ -168,161 +94,21 @@ python3 build_audio.py --preview && node render.mjs motion && node render.mjs st
 python3 build_audio.py && node render.mjs video 6                   # 真配音，然后渲染（6 = 并行页数）
 ```
 
-## 技能：seemath-physics-video
-
-![seemath-physics-video 演示](seemath-physics-video.jpg)
-
-把一道物理题（力学、光学、电磁学……）做成 **16:9、1920×1080 的讲解视频 MP4**：智谱 **GLM-TTS** 中文配音、中英双语字幕（同时输出 `.srt`）、按旁白时间轴驱动的蓝图画布动画。输入可以是题目截图或文字。流水线与 seemath-math-video 相同，区别在解题方法和画面。
-
-**画面跟着物理走**：建模，把运动分成几段，画受力，选规律，求解，再验算。力箭头按同一比例从作用点长出，物体位置来自解析解 `x(t)`，经 `simT()` 线性映射到屏幕时间，v–t 图同步生长，摩擦力随相对运动反向而转向。用 `S.at(k, f)` 定时。
-
-**流水线**（每个视频一个文件夹，建在用户当前目录）：
-
-```
-script.json ──build_audio.py──► timeline.json + mix.wav + <name>.srt   （GLM-TTS + 合成音乐）
-anim.js + phys.js + engine.js ──node render.mjs video──► <name>.mp4    （Playwright + ffmpeg，30 fps）
-```
-
-**护栏**：第一幕展示原题并逐条框出条件；`tts` 只能是能念出来的中文（单位要读出来，无数字或数学符号；θ 读作西塔）；多音字必须固定读音，`--check` 为 0 才允许调用付费 TTS；先免费 `--preview` 再拿截图拼图审查版面，然后生成真配音；`--asr` 把配音转回文字核对字母读音。通用物理道具加在 `phys.js`。不要改 `engine.js`。
-
-**触发词**：物理题视频、受力分析、牛顿定律、斜面、平抛、圆周、能量、动量、折射；physics explainer video, force diagram, Newton's laws, projectile, circular motion, refraction 等。
-
-### 依赖
-
-与 seemath-math-video 相同：Python 3 + `numpy requests pypinyin pillow`；Node.js 18+ + `playwright` + `ffmpeg-static`；智谱 **`GLM_API_KEY`** 写在 `~/.config/math-problem-video/.env`（三个视频技能共用）。没有 key 时 `TTS_ENGINE=auto` 依次用 edge-tts、macOS `say`。
-
-### 手动跑流水线（不经过 Claude）
-
-```bash
-bash skills/seemath-physics-video/scripts/new_video.sh "$PWD" my_problem
-bash skills/seemath-physics-video/scripts/setup_check.sh my_problem        # 必须输出 ALL OK
-cd my_problem
-python3 build_audio.py --check
-python3 build_audio.py --preview && node render.mjs motion && node render.mjs stills auto
-python3 build_audio.py && node render.mjs video 6
-```
-
-## 技能：seemath-chem-video
-
-![seemath-chem-video 演示](seemath-chem-video.jpg)
-
-把一道化学题（氧化还原配平与双线桥、物质的量、化学平衡与三段式、离子反应、电化学、滴定、工业流程……）做成 **16:9、1920×1080 的讲解视频 MP4**：同样的中文配音和中英双语字幕，画面是**墨绿黑板**。配平后的方程式钉在顶部方程式条，左边演示、右边石板。
-
-**方程式在讲题，守恒被数出来**：化合价在数轴上升降，电子一组组长到相等，系数从电子行飞进方程式，原子计数条打上 ✓，双线桥画出电子流动，分子盒按系数比反应，三段式逐行填写。动笔之前用 `scripts/chem_check.py` 核对配平、原子守恒和电荷守恒。`tts` 里化学式换成名称（`HNO3` → 硝酸，`SO4^{2-}` → 硫酸根离子）；字幕 `zh` 保留化学式并自动排成下标。
-
-**流水线**：结构同上，在 `engine.js` 旁使用 `chem.js`（`equation`、`valence`、`bridge`、`eFlow`、`tally`、`molMap`、`iceTable`、`molecule`、`beaker`、`graph`）。
-
-**护栏**：TTS、预览和 `--asr` 与另外两个视频技能相同，并且 `chem_check.py check` 必须退出码为 0。化合价、系数、双线桥起止、分子数量都与解题卡一致。失电子 / 升价用蓝，得电子 / 降价用红。通用化学道具加在 `chem.js`。不要改 `engine.js`。
-
-**触发词**：化学题视频、氧化还原配平、双线桥、电子守恒、物质的量、化学平衡、三段式、滴定；chemistry explainer video, redox, electron conservation, ICE table, titration 等。
-
-### 依赖
-
-与 seemath-math-video 相同（共用 `GLM_API_KEY` 和兜底引擎）。`scripts/chem_check.py` 不需要额外的包，用来核对系数、原子 / 电荷守恒和摩尔质量。
-
-### 手动跑流水线（不经过 Claude）
-
-```bash
-bash skills/seemath-chem-video/scripts/new_video.sh "$PWD" my_problem
-bash skills/seemath-chem-video/scripts/setup_check.sh my_problem           # 必须输出 ALL OK
-cd my_problem
-python3 build_audio.py --check
-python3 build_audio.py --preview && node render.mjs motion && node render.mjs stills auto
-python3 build_audio.py && node render.mjs video 6
-```
-
 ## 工作原理
 
-1. **得到 problem spec** —— 三入口归一成结构化描述（几何体类型与尺寸、已知条件、所求、语言）。
-2. **kernel 精确计算** —— sympy 算出精确坐标、关键向量、法向量、最终答案及各步中间量（LaTeX 字符串），绝不心算。
-3. **组装并注入模板** —— 把 `lesson` / `steps` / `model` 数据注入数据驱动模板 `template/lesson.html`，3D 顶点坐标由 `kernel.to_three(...)` 给出，与解题同源。
-4. **自检** —— kernel 答案 == 答案卡 == 末步骤展示值；本地静态服务 + 预览检查无报错、公式与高亮正常。
-5. **交付** —— 成品写到用户当前工作目录，命名形如 `solution-<题目简述>.html`。
+1. **得到 problem spec** —— 把文字、图片或随机输入归一成结构化题目描述。
+2. **求解并组装** —— 解析几何 kernel 精确计算并生成交互教学页；数学视频流水线生成配音、字幕和按时间轴驱动的动画。
+3. **自检** —— 检查答案、脚本、读音、动画动作和渲染预览。
+4. **交付** —— 将 HTML 页面或 MP4/SRT 文件写入用户当前工作目录。
 
 ## 目录结构
 
-```
 seemath/
 ├── .claude-plugin/
-│   ├── plugin.json              # 插件元信息
-│   └── marketplace.json         # 市场清单
-├── index.html                   # 成品样例（正四棱锥·线面角）
+├── index.html
 └── skills/
-    ├── seemath-solid-geometry/      # 立体几何 — 3D（Three.js）+ MathJax
-    │   ├── SKILL.md
-    │   ├── template/lesson.html # 数据驱动模板（通用 3D 渲染器 + 数据岛）
-    │   ├── lib/
-    │   │   ├── geometry_kernel.py  # sympy 精确计算核心
-    │   │   └── bodies.py           # 几何体棱拓扑库
-    │   ├── scripts/generate.py
-    │   ├── output/
-    │   └── references/          # problem-schema.md · conventions.md
-    ├── seemath-analytic-geometry/   # 解析几何 / 圆锥曲线 — 2D（Canvas）+ KaTeX
-    │   ├── SKILL.md
-    │   ├── template/board.html  # 数据驱动模板（通用 2D 渲染器 + 参数引擎）
-    │   ├── lib/
-    │   │   ├── analytic_kernel.py  # sympy 精确求解核心（联立·韦达·范围·定值）
-    │   │   └── conics.py           # 圆锥曲线定义库
-    │   ├── scripts/generate.py
-    │   ├── output/
-    │   └── references/          # problem-schema.md · conventions.md
-    ├── seemath-chem-reaction/       # 化学反应 — 3D（Three.js）+ KaTeX
-    │   ├── SKILL.md
-    │   ├── template/reaction.html # 数据驱动模板（统一渲染器 + 双引擎 + 数据岛）
-    │   ├── lib/
-    │   │   ├── reaction_kernel.py  # sympy 配平 + 守恒/原子映射校验 + 键差 + 装配
-    │   │   └── molecules.py        # VSEPR 分子几何库
-    │   ├── scripts/generate.py
-    │   ├── output/
-    │   └── references/          # problem-schema.md · conventions.md
-    ├── seemath-math-video/          # 数学题讲解视频 — GLM-TTS + canvas 动画 → MP4
-    │   ├── SKILL.md
-    │   ├── template/            # 可直接运行的示例项目（engine.js · anim.js · build_audio.py · render.mjs）
-    │   ├── shared/              # pron.py + pron.json —— 共享读音词表
-    │   ├── scripts/             # new_video.sh · setup_check.sh · 题目图片与截图拼图工具
-    │   ├── examples/cone-parallel/  # 立体几何示例（相机转俯视 · 圆锥展开）
-    │   └── reference/           # TTS 配置 · 脚本写法 · 读音 · 画面设计 · 动画 API
-    ├── seemath-physics-video/       # 物理题讲解视频 — GLM-TTS + 蓝图动画 → MP4
-    │   ├── SKILL.md
-    │   ├── template/            # 蓝图主题（engine.js · phys.js · anim.js）
-    │   ├── shared/
-    │   ├── scripts/
-    │   ├── examples/laser-curvature/  # 几何光学示例
-    │   └── reference/
-    └── seemath-chem-video/          # 化学题讲解视频 — GLM-TTS + 黑板动画 → MP4
-        ├── SKILL.md
-        ├── template/            # 黑板主题（engine.js · chem.js · anim.js）
-        ├── shared/
-        ├── scripts/             # 另有 chem_check.py —— 配平与守恒核对
-        ├── examples/equilibrium/    # 化学平衡 / 三段式示例
-        └── reference/
-```
-
-## 扩展
-
-**seemath-solid-geometry**
-- **加题型**：在 `geometry_kernel.py` 加求解函数（见 `references/conventions.md` 配方表），在 `generate.py` 加一个 `build_*`。
-- **加几何体**：在 `geometry_kernel.py` 加坐标构建函数，在 `bodies.py` 加棱拓扑。
-
-**seemath-analytic-geometry**
-- **加题型**：在 `analytic_kernel.py` 加目标量函数并复用 `range_over_m` / `is_constant_in_m`，在 `generate.py` 加一个 `build_*`（选交互范式：范围条 / 定值 / 定点 / 轨迹 trace）。
-- **加曲线**：椭圆 / 双曲线 / 抛物线 / 圆已内置；新曲线在 `conics.py` 与 `board.html` 引擎各加一份。
-
-**seemath-chem-reaction**
-- **加反应**：在 `generate.py` 加一个 `build_*`（高层 `species + atom_map`，或低层 `atoms + fragments` 用于机理），注册进 `REGISTRY`。
-- **加分子 / 离子**：在 `lib/molecules.py` 加一项（VSEPR 几何 + 显示元数据 + 内部键）。
-
-**seemath-math-video**
-- **做新题**：不改 `engine.js`；每道题重写 `script.json` / `storyboard.md` / `anim.js`，新图形函数写在 `anim.js` 里。
-- **修读音**：把词加进 `shared/pron.json`（`words` / `ok`），所有视频共用一份词表。
-
-**seemath-physics-video**
-- **做新题**：不改 `engine.js`；每道题重写 `script.json` / `storyboard.md` / `anim.js`。通用物理道具加在 `phys.js`。
-- **修读音**：把词加进 `shared/pron.json`。
-
-**seemath-chem-video**
-- **做新题**：不改 `engine.js`；每道题重写自己的文件。通用化学道具加在 `chem.js`。动笔前用 `scripts/chem_check.py` 核对方程式。
-- **修读音**：把词加进 `shared/pron.json`。
+    ├── seemath-analytic-geometry/
+    └── seemath-math-video/
 
 ## License
 
@@ -330,11 +116,7 @@ seemath/
 
 ## 作者
 
-JSH · [@akokoi1](https://x.com/akokoi1)
-
-| 微信公众号 | 小红书 |
-|---|---|
-| <a href="http://weixin.qq.com/r/mp/kUwUDP3EZKAbrblv9xmD"><img src="qr-wechat.png" alt="微信公众号" width="220"></a> | <a href="http://xhslink.com/m/64K17dDQNvj"><img src="qr-xiaohongshu.png" alt="小红书" width="220"></a> |
+JSH
 
 ## Star History
 
